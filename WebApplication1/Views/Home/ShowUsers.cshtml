@@ -1,0 +1,94 @@
+﻿@model UserViewModel
+
+@{
+    //ViewData["Title"] = "ShowUsers";
+
+    @Model.Title;
+}
+
+@*<h1>ShowUsers</h1>*@
+
+@*<p>
+            <a asp-action="Create">Create New</a>
+    <div>    </p>*@
+<form method="get">
+    <div class="input-group">
+        <input class="form-control" asp-for="SearchTerm" asp-action=""/>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search Here</button>
+        </div>
+
+    </div>
+
+</form>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("EMail Id")
+                </th>
+                <th>
+                    @Html.DisplayName("Password")
+                </th>
+                <th>
+                    @Html.DisplayName("Gender")
+                </th>
+                <th>
+                    @Html.DisplayName("Date Of Birth")
+                </th>
+                <th>
+                    @Html.DisplayName("Address")
+                </th>
+                <th>
+                    @Html.DisplayName("Role")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Users)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserPassword)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.RoleName)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.EmailId">Edit</a>*@ 
+                    <a asp-action="Details" asp-controller="Home" asp-route-EmailId="@item.EmailId">Details</a> 
+                    @*<a asp-action="Delete" asp-route-id="@item">Delete</a>*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                  cs-paging-pagesize="10"
+                  cs-paging-totalitems="@Model.TotalItems"
+                  cs-pagenumber-param="pagenumber"
+                  asp-action="ShowUsers"
+                  asp-controller="Home"
+                  cs-pager-li-current-class="page-item-active"
+                  cs-pager-li-non-active-class="page-item-disabled"
+                  cs-pager-li-other-class="page-item"
+                  cs-pager-link-current-class="page-link"
+                  cs-pager-link-other-class="page-link"></cs-pager>
+    </div>
+    
+</div>
